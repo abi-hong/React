@@ -83,9 +83,6 @@ function Update(props) {
 }
 
 function App() {
-  //const _mode = useState('WELCOME');
-  //const mode = mode[0];
-  //const setMode = mode[1];
   const [mode, setMode] = useState('WELCOME');
   const [id, setId] = useState(null); //초기값 null
   const [nextId, setNextId] = useState(4);
@@ -102,15 +99,30 @@ function App() {
   }
   else if (mode === 'READ') {
     let title, body = null;
-    let _id = id - 1;
-    title = topics[_id].title;
-    body = topics[_id].body;
+    for (let i=0;i<topics.length; i++) {
+      if(topics[i].id === id) {
+        title = topics[i].title;
+        body = topics[i].body;
+      }
+    }
 
     content = <Article title={title} body={body}></Article>;
-    contextControl = <li><a href={"/update/" + _id} onClick={(e) => {
-      e.preventDefault();
-      setMode('UPDATE');
-    }}>Update</a></li>;
+    contextControl = <>
+      <li><a href={"/update/" + id} onClick={(e) => {
+        e.preventDefault();
+        setMode('UPDATE');
+      }}>Update</a></li>
+      <li><input type="button" value="Delete" onClick={() => {
+        const newTopics = [];
+        for(let i=0; i<topics.length; i++) {
+          if (id !== topics[i].id) {
+            newTopics.push(topics[i]);
+          }
+        }
+        setTopics(newTopics);
+        setMode('WELCOME');
+      }}/></li>
+    </>;
   }
   else if (mode === 'CREATE') {
     content = <Create onCreate={(_title, _body) => {
@@ -127,22 +139,24 @@ function App() {
   }
   else if (mode === 'UPDATE') {
     let title, body = null;
-    console.log('id ', id);
-    title = topics[id-1].title;
-    body = topics[id-1].body;
+    for (let i=0;i<topics.length; i++) {
+      if(topics[i].id === id) {
+        title = topics[i].title;
+        body = topics[i].body;
+      }
+    }
     content = <Update title={title} body={body} onUpdate={(_title, _body) => {
-      console.log('title, body', title, body);
       const newTopics = [...topics];
-      const updatedTopic = {id:id, title:_title, body:_body};
-      console.log('_title, _body', _title, _body);
-      for(let i=0; i<newTopics.length; i++) {
-        if(newTopics[i].id === id) {
+      const updatedTopic = { id: id, title: _title, body: _body };
+      
+      for (let i = 0; i < newTopics.length; i++) {
+        if (newTopics[i].id === id) {
           newTopics[i] = updatedTopic;
           break;
         }
       }
       setTopics(newTopics);
-    }}/>
+    }} />
   }
 
   return (
