@@ -20,11 +20,22 @@
             `;
         }
         function TOC() {
+            let state = store.getState();
+            let i = 0;
+            let liTags = '';
+            
+            while(i<state.contents.length) {
+                liTags = liTags + `
+                    <li>
+                        <a href="${state.contents[i].id}">${state.contents[i].title}</a>
+                    </li>`;
+                i = i + 1;
+            }
+            
             document.querySelector('#toc').innerHTML = `
             <nav>
                 <ol>
-                    <li><a href="1.html">HTML</a></li>
-                    <li><a href="2.css">CSS</a></li>
+                    ${liTags}
                 </ol>
             </nav>
             `;
@@ -45,6 +56,21 @@
             </article>
             `;
         }
+
+        // Redux 적용
+        function reducer(state, action) {
+            if (state === undefined) {
+                return {
+                    contents: [
+                        { id:1, title:'HTML', description:'HTML is ...' },
+                        { id:2, title:'CSS', description:'CSS is ...' },
+                    ]
+                };
+            }
+            return;
+        }
+        const store = Redux.createStore(reducer);
+
         subject();
         TOC();
         control();
