@@ -9,7 +9,7 @@ export default class Nav extends Component {
             tags.push(
             <li key={d.id}>
                 <a href="#" data-id={d.id} onClick={function(e){
-                this.props.onClick(e.target.dataset.id);
+                this.props.onClick(Number(e.target.dataset.id));
             }.bind(this)}>{d.title}</a></li>);
         }
         return (

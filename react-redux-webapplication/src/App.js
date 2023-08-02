@@ -1,5 +1,5 @@
 import './App.css';
-import Article from './components/Article';
+import ArticleContainer from './containers/Article';
 import Header from './components/Header';
 import NavContainer from './containers/Nav';
 
@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <Header ></Header>
       <NavContainer></NavContainer>
-      <Article></Article>
+      <ArticleContainer></ArticleContainer>
     </div>
   );
 }
