@@ -1,14 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
+import { createStore } from 'redux';
+import { Provider, useSelector, useDispatch, connect } from 'react-redux';
+
+function reducer(currentState, action) {
+  //console.log(currentState, action);
+  if (currentState === undefined) {
+    return {
+      number : 1
+    };
+  }
+  const newState = {...currentState};
+  if (action.type === 'PLUS') {
+    newState.number++;
+  }
+  return newState;
+}
+const store = createStore(reducer);
 
 export default function App() {
-  const [number, setNumber] = useState(1);
   return (
     <div id="container">
-      <h1>Root : {number}</h1>
+      <h1>Root</h1>
       <div id="grid">
-        <Left1></Left1>
-        <Right1></Right1>
+        <Provider store={store}>
+          <Left1></Left1>
+          <Right1></Right1>
+        </Provider>
       </div>
     </div>
   );
@@ -22,6 +40,7 @@ function Left1(props) {
   );
 }
 function Left2(props) {
+  console.log('2');
   return (
     <div>
       <h1>Left2 : </h1>
@@ -30,9 +49,11 @@ function Left2(props) {
   );
 }
 function Left3(props) {
+  console.log('3');
+  const number = useSelector((state) => state.number);
   return (
     <div>
-      <h1>Left3 : </h1>
+      <h1>Left3 : {number}</h1>
     </div>
   );
 }
@@ -53,10 +74,13 @@ function Right2(props) {
   );
 }
 function Right3(props) {
+  const dispatch = useDispatch();
   return (
     <div>
       <h1>Right3</h1>
-      <input type="button" value="+" onClick={() => {}}></input>
+      <input type="button" value="+" onClick={() => {
+        dispatch({ type: 'PLUS' });
+      }}></input>
     </div>
   );
 }
