@@ -1,4 +1,4 @@
-import Article from '../components/Article';
+import Read from '../components/Read';
 import { connect } from 'react-redux';
 
 export default connect(
@@ -23,4 +23,4 @@ export default connect(
         }
     },
     null
-)(Article);
+)(Read);
