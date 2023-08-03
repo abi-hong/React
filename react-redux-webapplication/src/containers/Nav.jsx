@@ -8,7 +8,7 @@ export default connect(
     function(dispatch) {
         return {
             onClick: function(id) {
-                dispatch({ type: 'READ', id: id});
+                dispatch({ type: 'READ', id: id });
             }
         }
     }

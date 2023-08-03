@@ -21,6 +21,9 @@ function reducer(state=initState, action) {
     if (action.type === 'READ') {
         return {...state, mode: 'READ', selected_content_id: action.id };
     }
+    if (action.type === 'CREATE') {
+        return {...state, mode: 'CREATE', selected_content_id: action.id };
+    }
     return state;
 }
 
