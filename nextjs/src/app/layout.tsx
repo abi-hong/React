@@ -13,7 +13,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const resp = await fetch('http://localhost:9000/topics', { cache: 'no-store' }); //{ next: { revalidate: 0 } }
+  const resp = await fetch(process.env.NEXT_PUBLIC_API_URL+'topics', { cache: 'no-store' }); //{ next: { revalidate: 0 } }
   const topics = await resp.json();
   return (
     <html>

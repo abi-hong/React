@@ -14,7 +14,7 @@ export function Control() {
         <li><Link href={`/update/${id}`}>Update</Link></li>
         <li><input type="button" value="delete" onClick={() => {
           const options = { method: 'DELETE' }
-          fetch(`http://localhost:9000/topics/${id}`, options)
+          fetch(process.env.NEXT_PUBLIC_API_URL + 'topics/' + id, options)
           .then((res) => res.json())
           .then((result) => {
             router.refresh();
