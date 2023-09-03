@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import './globals.css'
 import type { Metadata } from 'next'
+import { Control } from './Control'
 
 export const metadata: Metadata = {
   title: 'Web tutorials',
@@ -19,16 +20,12 @@ export default async function RootLayout({
       <body>
         <h1><a href="/">WEB</a></h1>
         <ol>
-          {topics.map((topic:any) => {
+          {topics.map((topic: any) => {
             return <li key={topic.id}><Link href={`/read/${topic.id}`}>{topic.title}</Link></li>
           })}
         </ol>
         {children}
-        <ul>
-          <li><Link href="/create">Create</Link></li>
-          <li><Link href="/update/1">Update</Link></li>
-          <li><input type="button" value="delete" /></li>
-        </ul>
+        <Control />
       </body>
     </html>
   )
