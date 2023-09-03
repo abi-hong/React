@@ -22,18 +22,19 @@ export default function Create() {
                 .then((result) => {
                     console.log(result);
                     const lastId = result.id;
+                    router.refresh(); // 서버 컴포넌트 강제 다시 렌더링
                     router.push(`/read/${lastId}`);
                 })
         }}>
             <p>
-                <input id='myTitle' type="text" name="title" 
+                <input id='myTitle' type="text" name="title"
                     onChange={(e: React.FormEvent<HTMLInputElement>) => {
                         const {
                             currentTarget: { value },
-                          } = e;
+                        } = e;
                         console.log(e.currentTarget.value);
                         setTitle(value);
-                }} placeholder="title" />
+                    }} placeholder="title" />
             </p>
             <p>
                 <textarea name="body" placeholder="body"></textarea>

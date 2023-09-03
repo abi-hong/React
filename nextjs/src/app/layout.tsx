@@ -12,7 +12,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const resp = await fetch('http://localhost:9000/topics');
+  const resp = await fetch('http://localhost:9000/topics', { cache: 'no-store' }); //{ next: { revalidate: 0 } }
   const topics = await resp.json();
   return (
     <html>
